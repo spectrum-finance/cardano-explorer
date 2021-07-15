@@ -35,6 +35,6 @@ object App extends TaskApp {
       implicit0(ul: Unlift[F, I]) <-
         Resource.eval(runContext(WR.subIso.map(isoK => Unlift.byIso(isoK.inverse)))(context))
       implicit0(utxoService: UtxoService[F]) <- Resource.eval[I, UtxoService[F]](UtxoService.make[I, F])
-      httpServer <- HttpServer.make[I, F](appCfg.httpConfig)
+      httpServer                             <- HttpServer.make[I, F](appCfg.httpConfig)
     } yield httpServer
 }

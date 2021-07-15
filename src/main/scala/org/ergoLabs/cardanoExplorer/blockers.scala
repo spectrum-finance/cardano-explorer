@@ -10,13 +10,11 @@ import mouse.any._
 object blockers {
 
   /** Resource yielding a `Blocker` backed by an unbounded thread pool prefixed with a given `name`.
-   */
+    */
   def namedBlocker[F[_]](namePrefix: String)(implicit F: Sync[F]): Resource[F, Blocker] = {
     def name(id: Long) = s"$namePrefix-$id"
     val alloc = F.delay(
-      Executors.newCachedThreadPool(
-        r => new Thread(r) <| (t => t.setName(name(t.getId)))
-      )
+      Executors.newCachedThreadPool(r => new Thread(r) <| (t => t.setName(name(t.getId))))
     )
     def release(es: ExecutorService) = F.delay(es.shutdown())
     def liftToBlocker(es: ExecutorService) =
