@@ -2,9 +2,9 @@ import dependencies._
 
 lazy val commonSettings = Seq(
   scalacOptions ++= commonScalacOptions,
-  scalaVersion := "2.13.5",
+  scalaVersion := "2.13.6",
   organization := "org.ergolabs",
-  version := "0.4.0",
+  version := "0.1.0",
   resolvers += Resolver.sonatypeRepo("public"),
   resolvers += Resolver.sonatypeRepo("snapshots"),
 //  test in assembly := {},
@@ -43,20 +43,5 @@ lazy val cardanoExplorer = project
   .settings(
     moduleName := "cardano-explorer",
     name := "CardanoExplorer",
-    libraryDependencies ++=
-      Monix ++
-        SttpCore ++
-        Tapir ++
-        TapirHttp4s ++
-        Circe ++
-        Cats ++
-        Fs2 ++
-        Tofu ++
-        Derevo ++
-        Db ++
-        Typing ++
-        Enums ++
-        Config ++
-        Simulacrum ++
-        CompilerPlugins
+    libraryDependencies ++= dependencies.core
   )
