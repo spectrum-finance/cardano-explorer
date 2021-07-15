@@ -1,12 +1,26 @@
-name := "CardanoExplorer"
+import dependencies._
 
-version := "0.1"
+lazy val commonSettings = Seq(
+  scalacOptions ++= commonScalacOptions,
+  scalaVersion := "2.13.5",
+  organization := "org.ergolabs",
+  version := "0.4.0",
+  resolvers += Resolver.sonatypeRepo("public"),
+  resolvers += Resolver.sonatypeRepo("snapshots"),
+//  test in assembly := {},
+//  assemblyMergeStrategy in assembly := {
+//    case "logback.xml"                                => MergeStrategy.first
+//    case "module-info.class"                          => MergeStrategy.discard
+//    case "META-INF/intellij-compat.json"              => MergeStrategy.last
+//    case other if other.contains("io.netty.versions") => MergeStrategy.first
+//    case other if other.contains("scala")             => MergeStrategy.first
+//    case other if other.contains("derevo")            => MergeStrategy.last
+//    case other                                        => (assemblyMergeStrategy in assembly).value(other)
+//  },
+  libraryDependencies ++= dependencies.CompilerPlugins
+)
 
-scalaVersion := "2.13.5"
-
-idePackagePrefix := Some("ergo.labs.dex")
-
-scalacOptions ++= List(
+lazy val commonScalacOptions = List(
   "-deprecation",
   "-encoding",
   "UTF-8",
@@ -16,19 +30,33 @@ scalacOptions ++= List(
   "-feature",
   "-unchecked",
   "-Xfuture",
+  "-Yno-adapted-args",
   "-Ywarn-numeric-widen",
   "-Ywarn-value-discard",
-  "-Ymacro-annotations"
+  "-Ypartial-unification"
 )
 
-libraryDependencies ++= Seq(
-  "org.typelevel" %% "log4cats-slf4j" % "1.2.0",
-  "io.monix" %% "monix" % "3.0.0",
-  "org.http4s" %% "http4s-blaze-server" % "0.21.6",
-  "org.http4s" %% "http4s-circe" % "0.21.6",
-  "org.http4s" %% "http4s-dsl" % "0.21.6",
-  "io.circe" %% "circe-generic" % "0.13.0",
-  "co.fs2" %% "fs2-core" % "2.3.0",
-  compilerPlugin("org.typelevel" %% "kind-projector" % "0.11.3" cross CrossVersion.patch),
-  compilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1")
-)
+lazy val cardanoExplorer = project
+  .in(file("."))
+  .withId("cardano-explorer")
+  .settings(commonSettings)
+  .settings(
+    moduleName := "cardano-explorer",
+    name := "CardanoExplorer",
+    libraryDependencies ++=
+      Monix ++
+        SttpCore ++
+        Tapir ++
+        TapirHttp4s ++
+        Circe ++
+        Cats ++
+        Fs2 ++
+        Tofu ++
+        Derevo ++
+        Db ++
+        Typing ++
+        Enums ++
+        Config ++
+        Simulacrum ++
+        CompilerPlugins
+  )
