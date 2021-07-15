@@ -1,10 +1,8 @@
-package ergo.labs.dex
+package org.ergoLabs.cardanoExplorer
 
 import io.circe.syntax._
 import monix.eval.Task
 import org.http4s.HttpRoutes
-import org.http4s.circe._
-import org.http4s.dsl.Http4sDsl
 import org.http4s.server.middleware.Logger
 
 class HttpServer extends Http4sDsl[Task] {

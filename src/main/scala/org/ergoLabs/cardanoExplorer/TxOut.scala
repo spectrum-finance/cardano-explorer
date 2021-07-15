@@ -1,4 +1,4 @@
-package ergo.labs.dex
+package org.ergoLabs.cardanoExplorer
 
 import io.circe.generic.JsonCodec
 
