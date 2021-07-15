@@ -7,5 +7,5 @@ package object defs {
   private val V0Prefix: EndpointInput[Unit] = "api" / "v0"
 
   val baseEndpointDef: Endpoint[Unit, ApiErr, Unit, Any] =
-    definitions.baseEndpointDef(V0Prefix)
+    definitions.baseEndDef(V0Prefix)
 }

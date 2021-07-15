@@ -2,6 +2,7 @@ package org.ergoLabs.cardanoExplorer.domain
 
 import derevo.circe.magnolia.{customizableDecoder, customizableEncoder}
 import derevo.derive
+import sttp.tapir.Schema
 
 @derive(customizableEncoder, customizableDecoder)
 final case class FullTxOut(
@@ -11,3 +12,8 @@ final case class FullTxOut(
   txOutValue: Value,
   fullTxOutDatum: Datum
 )
+
+object FullTxOut {
+
+  implicit val schema: Schema[FullTxOut] = Schema.derived[FullTxOut]
+}

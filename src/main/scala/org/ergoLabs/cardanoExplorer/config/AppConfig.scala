@@ -5,13 +5,15 @@ import derevo.derive
 import derevo.pureconfig.pureconfigReader
 import pureconfig.ConfigSource
 import pureconfig.module.catseffect.syntax.CatsEffectConfigSource
+import tofu.Context
 import tofu.optics.macros.{promote, ClassyOptics}
+import tofu.syntax.monadic._
 
-@derive(pureconfigReader)
 @ClassyOptics
+@derive(pureconfigReader)
 final case class AppConfig(@promote httpConfig: HttpConfig)
 
-object AppConfig {
+object AppConfig extends Context.Companion[AppConfig] {
 
   def load[F[_]: Sync: ContextShift](
     pathOpt: Option[String],

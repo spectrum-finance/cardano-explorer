@@ -2,9 +2,9 @@ package org.ergoLabs.cardanoExplorer.http.defs
 
 import org.ergoLabs.cardanoExplorer.domain.{FullTxOut, Id}
 import org.ergoLabs.cardanoExplorer.http.ApiErr
-import sttp.tapir._
 import org.ergoLabs.cardanoExplorer.http.definitions._
-import sttp.tapir.json.circe.jsonBody
+import sttp.tapir._
+import sttp.tapir.json.circe._
 
 object UtxoEndpointDefs {
 

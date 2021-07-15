@@ -3,11 +3,11 @@ import sbt.{compilerPlugin, _}
 object dependencies {
 
   val Cats = List(
-    "org.typelevel"    %% "cats-core"           % versions.Cats,
-    "org.typelevel"    %% "cats-effect"         % versions.CatsEffect,
-    "org.typelevel"    %% "cats-mtl-core"       % versions.CatsMtl,
-    "com.github.cb372" %% "cats-retry"          % versions.CatsRetryVersion,
-    "org.typelevel" %% "mouse"     % versions.Mouse
+    "org.typelevel"    %% "cats-core"     % versions.Cats,
+    "org.typelevel"    %% "cats-effect"   % versions.CatsEffect,
+    "org.typelevel"    %% "cats-mtl-core" % versions.CatsMtl,
+    "com.github.cb372" %% "cats-retry"    % versions.CatsRetryVersion,
+    "org.typelevel"    %% "mouse"         % versions.Mouse
   )
 
   val Tofu = List(
@@ -46,10 +46,10 @@ object dependencies {
   )
 
   val Derevo = List(
-    "tf.tofu" %% "derevo-circe-magnolia" % versions.Derevo,
-    "tf.tofu" %% "derevo-pureconfig"     % versions.Derevo,
-    "tf.tofu" %% "derevo-cats-tagless"   % versions.Derevo,
-    "tf.tofu" %% "derevo-cats"           % versions.Derevo
+    "tf.tofu" %% "derevo-circe-magnolia"    % versions.Derevo,
+    "tf.tofu" %% "derevo-pureconfig-legacy" % versions.Derevo,
+    "tf.tofu" %% "derevo-cats-tagless"      % versions.Derevo,
+    "tf.tofu" %% "derevo-cats"              % versions.Derevo
   )
 
   val Circe = List(
@@ -104,27 +104,27 @@ object dependencies {
   lazy val CompilerPlugins: List[ModuleID] =
     List(
       compilerPlugin(
-        "org.typelevel"           %% "kind-projector"     % versions.KindProjector cross CrossVersion.full
+        "org.typelevel" %% "kind-projector" % versions.KindProjector cross CrossVersion.full
       ),
       compilerPlugin("com.olegpy" %% "better-monadic-for" % versions.BetterMonadic4)
     )
 
   lazy val core =
     Cats ++
-      Tofu ++
-      Monix ++
-      Newtype ++
-      Config ++
-      Logging ++
-      Derevo ++
-      Doobie ++
-      Monocle ++
-      CompilerPlugins ++
-      Circe ++
-      Tapir ++
-      Http4s ++
-      Sttp ++
-      Google ++
-      Enumeratum ++
-      Test
+    Tofu ++
+    Monix ++
+    Newtype ++
+    Config ++
+    Logging ++
+    Derevo ++
+    Doobie ++
+    Monocle ++
+    CompilerPlugins ++
+    Circe ++
+    Tapir ++
+    Http4s ++
+    Sttp ++
+    Google ++
+    Enumeratum ++
+    Test
 }

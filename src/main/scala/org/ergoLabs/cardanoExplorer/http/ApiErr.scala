@@ -2,6 +2,7 @@ package org.ergoLabs.cardanoExplorer.http
 
 import derevo.circe.magnolia.{customizableDecoder, customizableEncoder}
 import derevo.derive
+import io.circe.magnolia.configured.Configuration
 import sttp.tapir.{Schema, Validator}
 
 import scala.util.control.NoStackTrace
@@ -12,6 +13,8 @@ abstract class ApiErr extends Exception with NoStackTrace {
 }
 
 object ApiErr {
+
+  implicit val config: Configuration = Configuration.default
 
   @derive(customizableEncoder, customizableDecoder)
   final case class NotFound(status: Int, reason: String) extends ApiErr

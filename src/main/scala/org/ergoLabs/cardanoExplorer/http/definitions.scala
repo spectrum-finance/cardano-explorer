@@ -6,7 +6,7 @@ import sttp.tapir.{endpoint, oneOf, oneOfDefaultMapping, oneOfMapping, Endpoint,
 
 object definitions {
 
-  def baseEndpointDef(basePrefix: EndpointInput[Unit]): Endpoint[Unit, ApiErr, Unit, Any] =
+  def baseEndDef(basePrefix: EndpointInput[Unit]): Endpoint[Unit, ApiErr, Unit, Any] =
     endpoint
       .in(basePrefix)
       .errorOut(
