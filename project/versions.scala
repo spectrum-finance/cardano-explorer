@@ -5,6 +5,7 @@ object versions {
 
   val Tofu                = "0.10.2"
   val Cats                = "2.2.0"
+  val Mouse               = "0.23"
   val CatsEffect          = "2.3.3"
   val CatsMtl             = "0.7.0"
   val CatsTagless         = "0.10"

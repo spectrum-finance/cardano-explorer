@@ -6,7 +6,8 @@ object dependencies {
     "org.typelevel"    %% "cats-core"           % versions.Cats,
     "org.typelevel"    %% "cats-effect"         % versions.CatsEffect,
     "org.typelevel"    %% "cats-mtl-core"       % versions.CatsMtl,
-    "com.github.cb372" %% "cats-retry"          % versions.CatsRetryVersion
+    "com.github.cb372" %% "cats-retry"          % versions.CatsRetryVersion,
+    "org.typelevel" %% "mouse"     % versions.Mouse
   )
 
   val Tofu = List(

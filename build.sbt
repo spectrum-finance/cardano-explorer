@@ -32,8 +32,7 @@ lazy val commonScalacOptions = List(
   "-Xfuture",
   "-Ymacro-annotations",
   "-Ywarn-numeric-widen",
-  "-Ywarn-value-discard",
-  "-Ypartial-unification"
+  "-Ywarn-value-discard"
 )
 
 lazy val cardanoExplorer = project

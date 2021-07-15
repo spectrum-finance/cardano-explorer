@@ -4,4 +4,4 @@ import derevo.derive
 import derevo.pureconfig.pureconfigReader
 
 @derive(pureconfigReader)
-final case class HttpConfig (host: String, port: String)
+final case class HttpConfig (host: String, port: Int)
