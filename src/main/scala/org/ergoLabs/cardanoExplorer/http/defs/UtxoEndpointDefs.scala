@@ -12,7 +12,7 @@ object UtxoEndpointDefs {
 
   def getUtxoById: Endpoint[Id, ApiErr, FullTxOut, Any] =
     baseEndpointDef
-      .in(prefix / path[Id] )
+      .in(prefix / path[Id])
       .out(jsonBody[FullTxOut])
 
 }

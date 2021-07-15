@@ -29,17 +29,17 @@ object ApiErr {
   def unknownErr(message: String): UnknownErr = UnknownErr(500, s"Unknown error: $message")
 
   implicit val unknownErrorS: Schema[UnknownErr] = Schema.derived[UnknownErr]
-  implicit val notFoundS: Schema[NotFound] = Schema.derived[NotFound]
-  implicit val badInputS: Schema[BadRequest] = Schema.derived[BadRequest]
+  implicit val notFoundS: Schema[NotFound]       = Schema.derived[NotFound]
+  implicit val badInputS: Schema[BadRequest]     = Schema.derived[BadRequest]
 
   implicit val unknownErrorV: Validator[UnknownErr] = unknownErrorS.validator
-  implicit val notFoundV: Validator[NotFound] = notFoundS.validator
-  implicit val badInputV: Validator[BadRequest] = badInputS.validator
+  implicit val notFoundV: Validator[NotFound]       = notFoundS.validator
+  implicit val badInputV: Validator[BadRequest]     = badInputS.validator
 
   implicit val schema: Schema[ApiErr] =
     Schema.oneOfUsingField[ApiErr, String](_.getMessage, _.toString)(
       "unknownError" -> unknownErrorS,
-      "notFound" -> notFoundS,
-      "badInput" -> badInputS
+      "notFound"     -> notFoundS,
+      "badInput"     -> badInputS
     )
 }

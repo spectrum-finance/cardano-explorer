@@ -2,7 +2,7 @@ package org.ergoLabs.cardanoExplorer.http
 
 import sttp.model.StatusCode
 import sttp.tapir.json.circe.jsonBody
-import sttp.tapir.{Endpoint, EndpointInput, endpoint, oneOf, oneOfDefaultMapping, oneOfMapping}
+import sttp.tapir.{endpoint, oneOf, oneOfDefaultMapping, oneOfMapping, Endpoint, EndpointInput}
 
 object definitions {
 
