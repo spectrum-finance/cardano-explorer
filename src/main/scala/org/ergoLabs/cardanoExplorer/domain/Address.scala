@@ -1,8 +1,7 @@
 package org.ergoLabs.cardanoExplorer.domain
 
-sealed trait Address
+import derevo.circe.magnolia.{customizableDecoder, customizableEncoder}
+import derevo.derive
 
-object Address {
-
-  
-}
+@derive(customizableEncoder, customizableDecoder)
+final case class Address(addressCredential: Credential, addressStakingCredential: Option[StakingCredential])

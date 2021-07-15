@@ -1,3 +1,7 @@
 package org.ergoLabs.cardanoExplorer.domain
 
-final case class TxOut()
+import derevo.circe.magnolia.{customizableDecoder, customizableEncoder}
+import derevo.derive
+
+@derive(customizableEncoder, customizableDecoder)
+final case class TxOut(txOutAddress: Address, txOutValue: Value, txOutDatumHash: String)

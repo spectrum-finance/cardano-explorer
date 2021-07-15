@@ -31,7 +31,6 @@ lazy val commonScalacOptions = List(
   "-unchecked",
   "-Xfuture",
   "-Ymacro-annotations",
-  "-Yno-adapted-args",
   "-Ywarn-numeric-widen",
   "-Ywarn-value-discard",
   "-Ypartial-unification"

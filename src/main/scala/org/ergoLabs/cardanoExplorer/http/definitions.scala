@@ -4,7 +4,7 @@ import sttp.model.StatusCode
 import sttp.tapir.json.circe.jsonBody
 import sttp.tapir.{Endpoint, EndpointInput, endpoint, oneOf, oneOfDefaultMapping, oneOfMapping}
 
-object defs {
+object definitions {
 
   def baseEndpointDef(basePrefix: EndpointInput[Unit]): Endpoint[Unit, ApiErr, Unit, Any] =
     endpoint

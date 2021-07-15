@@ -1,3 +1,7 @@
 package org.ergoLabs.cardanoExplorer.domain
 
-trait Value
+import derevo.circe.magnolia.customizableEncoder
+import derevo.derive
+
+@derive(customizableEncoder)
+final case class Value(getValue: List[(CurrencySymbol, List[(TokenName, Long)])])
