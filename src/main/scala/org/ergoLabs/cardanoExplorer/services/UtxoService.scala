@@ -9,6 +9,8 @@ import org.ergoLabs.cardanoExplorer.domain.Datum.ErgoDexPool
 
 trait UtxoService[F[_]] {
 
+  def getFullTxOuts: F[List[FullTxOut]]
+
   def getFullTxOutById(id: Id): F[Option[FullTxOut]]
 
   def getTxOutById(id: Id): F[Option[TxOut]]
@@ -17,9 +19,23 @@ trait UtxoService[F[_]] {
 object UtxoService {
 
   //todo: add logging
-  def make[I[+_]: Applicative, F[_]: Applicative]: I[UtxoService[F]] = new Live[F].pure[I]
+  def make[I[+_] : Applicative, F[_] : Applicative]: I[UtxoService[F]] = new Live[F].pure[I]
 
-  final private class Live[F[_]: Applicative] extends UtxoService[F] {
+  final private class Live[F[_] : Applicative] extends UtxoService[F] {
+
+    def getFullTxOuts: F[List[FullTxOut]] =
+      List(
+        FullTxOut(
+          TxId("txId"),
+          RefIdx(1),
+          Address(
+            PubKeyCredential("abc"),
+            none
+          ),
+          Value(List.empty),
+          ErgoDexPool("test")
+        )
+      ).pure
 
     override def getFullTxOutById(id: Id): F[Option[FullTxOut]] =
       FullTxOut(

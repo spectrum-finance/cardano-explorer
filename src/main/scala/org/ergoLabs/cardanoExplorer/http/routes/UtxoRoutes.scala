@@ -2,7 +2,11 @@ package org.ergoLabs.cardanoExplorer.http.routes
 
 import cats.Monad
 import cats.data.EitherT
+import cats.syntax.functor._
+import cats.syntax.applicative._
+import cats.syntax.either._
 import cats.effect.{Concurrent, ContextShift, Timer}
+import cats.implicits.toSemigroupKOps
 import org.ergoLabs.cardanoExplorer.http.ApiErr
 import org.ergoLabs.cardanoExplorer.http.ApiErr.NotFound
 import org.ergoLabs.cardanoExplorer.services.UtxoService
@@ -16,10 +20,18 @@ final class UtxoRoutes[F[_]: Concurrent: ContextShift: Timer](utxoService: UtxoS
 
   import org.ergoLabs.cardanoExplorer.http.defs.UtxoEndpointDefs._
 
-  val routes: HttpRoutes[F] = getFullTxOutR
+  var height = 1
 
-  def getFullTxOutR = Http4sServerInterpreter.toRoutes(getUtxoById) { id =>
-    utxoService.getFullTxOutById(id).orNotFound("Not found")
+  val routes: HttpRoutes[F] = getFullTxOutR <+> getHeightR
+
+  def getFullTxOutR = Http4sServerInterpreter.toRoutes(getUtxos) { _ =>
+    utxoService.getFullTxOuts.map(_.asRight[ApiErr])
+  }
+
+  def getHeightR = Http4sServerInterpreter.toRoutes(getHeight) { _ =>
+    val currentHeight = height
+    height += 1
+    currentHeight.asRight[ApiErr].pure
   }
 }
 
