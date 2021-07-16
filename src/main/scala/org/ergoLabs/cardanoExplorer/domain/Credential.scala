@@ -9,8 +9,8 @@ sealed trait Credential
 
 object Credential {
 
-  final case class PubKeyCredential(pubkeyHash: String) extends Credential
-  final case class ScriptCredential(validatorHash: String) extends Credential
+  final case class PubKeyCredential(pubkeyHash: String, tag: String = "PubKeyCredential") extends Credential
+  final case class ScriptCredential(validatorHash: String, tag: String = "PubKeyCredential") extends Credential
 
   implicit val schema: Schema[Credential] = Schema.derived[Credential]
 }

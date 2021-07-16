@@ -6,11 +6,16 @@ import io.circe.magnolia.configured.Configuration
 import io.estatico.newtype.macros.newtype
 import org.ergoLabs.cardanoExplorer.domain.{CurrencySymbol, Id, RefIdx, TxId}
 import cats.syntax.option._
+import org.ergoLabs.cardanoExplorer.domain.Datum.ErgoDexPool
 import sttp.tapir.Codec.PlainCodec
 import sttp.tapir.CodecFormat.TextPlain
 import sttp.tapir.{Codec, Schema}
 
 package object domain {
+
+
+
+
 
   implicit val config: Configuration = Configuration.default
 
@@ -23,12 +28,12 @@ package object domain {
     implicit val codec: PlainCodec[Id] = Codec.string.map(Id(_))(_.value)
   }
 
-  @newtype case class TxId(value: String)
+
+  @JsonCodec
+  case class TxId(getTxId: String)
 
   object TxId {
-    implicit val encoder: Encoder[TxId] = deriving
-    implicit val decoder: Decoder[TxId] = deriving
-    implicit val schema: Schema[TxId]   = Schema.schemaForString.map(TxId(_).some)(_.value)
+    implicit val schema: Schema[TxId]   = Schema.schemaForString.map(TxId(_).some)(_.getTxId)
   }
 
   @newtype case class RefIdx(value: Int)
