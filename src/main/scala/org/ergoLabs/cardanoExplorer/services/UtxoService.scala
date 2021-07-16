@@ -43,7 +43,7 @@ object UtxoService {
           RefIdx(1),
           Address(None, addressCredential = AddressCredential(Contents("21fe31dfa154a261626bf854046fd2271b7bed4b6abe45aa58877ef47f9721b9"))),
           Value(List.empty),
-          Datum1(test.asJson.noSpaces)
+          Datum1("d87989d879800a0a0a40d879824040d87982404040d879824040")
         )
       ).pure
 
