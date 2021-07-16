@@ -54,4 +54,8 @@ package object domain {
     implicit val decoder: Decoder[TokenName] = deriving
     implicit val schema: Schema[TokenName]   = Schema.schemaForString.map(TokenName(_).some)(_.unTokenName)
   }
+
+  @newtype case class PubKeyHash(value: String)
+
+  @newtype case class PoolId(value: String)
 }

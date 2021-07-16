@@ -1,6 +1,6 @@
 package org.ergoLabs.cardanoExplorer.services
 
-import org.ergoLabs.cardanoExplorer.domain.Datum
+import org.ergoLabs.cardanoExplorer.domain.datum.Datum
 
 trait DatumResolver[F[_]] {
 
