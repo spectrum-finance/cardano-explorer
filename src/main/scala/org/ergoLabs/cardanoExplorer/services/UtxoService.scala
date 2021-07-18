@@ -1,7 +1,19 @@
 package org.ergoLabs.cardanoExplorer.services
 
 import cats.Applicative
-import org.ergoLabs.cardanoExplorer.domain.{Address, Credential, Datum, FullTxOut, Id, ProxyDatum, RefIdx, TxId, TxOut, Value}
+import org.ergoLabs.cardanoExplorer.domain.{
+  Address,
+  Credential,
+  Datum,
+  FullTxOut,
+  Gid,
+  Id,
+  ProxyDatum,
+  RefIdx,
+  TxId,
+  TxOut,
+  Value
+}
 import tofu.syntax.monadic._
 import cats.syntax.option._
 import org.ergoLabs.cardanoExplorer.domain.Address.{AddressCredential, Contents}
@@ -20,15 +32,17 @@ trait UtxoService[F[_]] {
 object UtxoService {
 
   //todo: add logging
-  def make[I[+_] : Applicative, F[_] : Applicative]: I[UtxoService[F]] = new Live[F].pure[I]
+  def make[I[+_]: Applicative, F[_]: Applicative]: I[UtxoService[F]] = new Live[F].pure[I]
 
-  final private class Live[F[_] : Applicative] extends UtxoService[F] {
+  final private class Live[F[_]: Applicative] extends UtxoService[F] {
 
     import io.circe.syntax._
 
     val test = ProxyDatum(
       "Deposit",
-      1,1,1,
+      1,
+      1,
+      1,
       "21fe31dfa154a261626bf854046fd2271b7bed4b6abe45aa58877ef47f9721b9",
       "21fe31dfa154a261626bf854046fd2271b7bed4b6abe45aa58877ef47f9721b9",
       "21fe31dfa154a261626bf854046fd2271b7bed4b6abe45aa58877ef47f9721b9",
@@ -39,19 +53,41 @@ object UtxoService {
     def getFullTxOuts: F[List[FullTxOut]] =
       List(
         FullTxOut(
+          Gid(1),
           TxId("21fe31dfa154a261626bf854046fd2271b7bed4b6abe45aa58877ef47f9721b9"),
           RefIdx(1),
-          Address(None, addressCredential = AddressCredential(Contents("21fe31dfa154a261626bf854046fd2271b7bed4b6abe45aa58877ef47f9721b9"))),
+          Address(
+            None,
+            addressCredential =
+              AddressCredential(Contents("21fe31dfa154a261626bf854046fd2271b7bed4b6abe45aa58877ef47f9721b9"))
+          ),
           Value(List.empty),
           Datum1("d87989d879800a0a0a40d879824040d87982404040d879824040")
+        ),
+        FullTxOut(
+          Gid(2),
+          TxId("21fe31dfa154a261626bf854046fd2271b7bed4b6abe45aa58877ef47f9721b9"),
+          RefIdx(2),
+          Address(
+            None,
+            addressCredential =
+              AddressCredential(Contents("21fe31dfa154a261626bf854046fd2271b7bed4b6abe45aa58877ef47f9721b9"))
+          ),
+          Value(List.empty),
+          Datum1("d879840ad879824040d879824040d879824040")
         )
       ).pure
 
     override def getFullTxOutById(id: Id): F[Option[FullTxOut]] =
       FullTxOut(
+        Gid(1),
         TxId("txId"),
         RefIdx(1),
-        Address(None, addressCredential = AddressCredential(Contents("21fe31dfa154a261626bf854046fd2271b7bed4b6abe45aa58877ef47f9721b9"))),
+        Address(
+          None,
+          addressCredential =
+            AddressCredential(Contents("21fe31dfa154a261626bf854046fd2271b7bed4b6abe45aa58877ef47f9721b9"))
+        ),
         Value(List.empty),
         Datum1("21fe31dfa154a261626bf854046fd2271b7bed4b6abe45aa58877ef47f9721b9")
       ).some.pure[F]

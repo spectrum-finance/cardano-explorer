@@ -9,6 +9,7 @@ import sttp.tapir.Schema
 sealed trait Datum
 
 object Datum {
+
   @derive(customizableEncoder, customizableDecoder)
   final case class Datum1(getDatum: String)
 
@@ -16,6 +17,7 @@ object Datum {
     implicit val schema: Schema[Datum1] = Schema.derived[Datum1]
 
   }
+
   @derive(customizableEncoder, customizableDecoder)
   final case class ErgoDexPool(data: String) extends Datum
 

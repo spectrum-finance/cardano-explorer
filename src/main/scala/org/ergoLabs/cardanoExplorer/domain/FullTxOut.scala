@@ -7,6 +7,7 @@ import sttp.tapir.Schema
 
 @derive(customizableEncoder, customizableDecoder)
 final case class FullTxOut(
+  outGId: Gid,
   refId: TxId,
   refIdx: RefIdx,
   txOutAddress: Address,

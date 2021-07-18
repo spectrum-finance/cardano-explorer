@@ -13,10 +13,6 @@ import sttp.tapir.{Codec, Schema}
 
 package object domain {
 
-
-
-
-
   implicit val config: Configuration = Configuration.default
 
   @newtype case class Id(value: String)
@@ -28,12 +24,11 @@ package object domain {
     implicit val codec: PlainCodec[Id] = Codec.string.map(Id(_))(_.value)
   }
 
-
   @JsonCodec
   case class TxId(getTxId: String)
 
   object TxId {
-    implicit val schema: Schema[TxId]   = Schema.schemaForString.map(TxId(_).some)(_.getTxId)
+    implicit val schema: Schema[TxId] = Schema.schemaForString.map(TxId(_).some)(_.getTxId)
   }
 
   @newtype case class RefIdx(value: Int)
@@ -58,5 +53,13 @@ package object domain {
     implicit val encoder: Encoder[TokenName] = deriving
     implicit val decoder: Decoder[TokenName] = deriving
     implicit val schema: Schema[TokenName]   = Schema.schemaForString.map(TokenName(_).some)(_.unTokenName)
+  }
+
+  @newtype case class Gid(value: Int)
+
+  object Gid {
+    implicit val encoder: Encoder[Gid] = Encoder.encodeInt.contramap(_.value)
+    implicit val decoder: Decoder[Gid] = Decoder.decodeInt.map(Gid(_))
+    implicit val schema: Schema[Gid]   = Schema.schemaForInt.map(Gid(_).some)(_.value)
   }
 }

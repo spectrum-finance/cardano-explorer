@@ -14,7 +14,7 @@ object Address {
   @derive(customizableEncoder, customizableDecoder)
   final case class AddressCredential(contents: Contents, tag: String = "PubKeyCredential")
 
-  object AddressCredential{
+  object AddressCredential {
     implicit val schema: Schema[AddressCredential] = Schema.derived[AddressCredential]
 
   }
