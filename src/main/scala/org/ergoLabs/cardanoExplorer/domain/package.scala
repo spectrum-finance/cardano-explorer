@@ -39,27 +39,24 @@ package object domain {
     implicit val schema: Schema[RefIdx]   = Schema.schemaForInt.map(RefIdx(_).some)(_.value)
   }
 
-  @newtype case class CurrencySymbol(unCurrencySymbol: String)
+  @JsonCodec
+  case class CurrencySymbol(unCurrencySymbol: String)
 
   object CurrencySymbol {
-    implicit val encoder: Encoder[CurrencySymbol] = deriving
-    implicit val decoder: Decoder[CurrencySymbol] = deriving
     implicit val schema: Schema[CurrencySymbol]   = Schema.schemaForString.map(CurrencySymbol(_).some)(_.unCurrencySymbol)
   }
 
-  @newtype case class TokenName(unTokenName: String)
+  @JsonCodec
+  case class TokenName(unTokenName: String)
 
   object TokenName {
-    implicit val encoder: Encoder[TokenName] = deriving
-    implicit val decoder: Decoder[TokenName] = deriving
     implicit val schema: Schema[TokenName]   = Schema.schemaForString.map(TokenName(_).some)(_.unTokenName)
   }
 
-  @newtype case class Gid(value: Int)
+  @JsonCodec
+  final case class Gid(gIdx: Int)
 
   object Gid {
-    implicit val encoder: Encoder[Gid] = Encoder.encodeInt.contramap(_.value)
-    implicit val decoder: Decoder[Gid] = Decoder.decodeInt.map(Gid(_))
-    implicit val schema: Schema[Gid]   = Schema.schemaForInt.map(Gid(_).some)(_.value)
+    implicit val schema: Schema[Gid]   = Schema.schemaForInt.map(Gid(_).some)(_.gIdx)
   }
 }
